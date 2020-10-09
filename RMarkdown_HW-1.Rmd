@@ -1,0 +1,43 @@
+---
+title: "RMarkdown Homework - 1"
+author: "Ahmet Emin Saricaoglu"
+date: "09 10 2020"
+output: html_document
+---
+
+## Who Am I
+
+My name is Ahmet Emin Saricaoglu and I'm from Trabzon. I'm interested in football and scuba diving. I'm currently in my company's football team scuba diving club. 
+
+I graduated from Istanbul Technical University Management Engineerşng department in 2019 January. I work in Garanti BBVA Technology for 1.5 years. I have been interested in data and analytics since I started to work in Nielsen Company as data analyst intern. From this time, I have made many individual / team works and earned some online training certifications.
+
+I want to be a great data scientist. This is my main motivation to join this program.I want to improve myself in not only data analysis, building data model but also data visualization, big data management (Hadoop, spark), elt, big data pipeline, web scraping. Briefly, my main focus will be about data scientis, but I want to have skills for data engineer / big data management area.
+
+<https://www.linkedin.com/in/ahmeteminsaricaoglu/>
+
+## Using R to Support COVID Response at the Health System
+
+This video is part of the R/Medicine 2020 Virtual Conference. Their work has changed dramatically in early march going into mid-march and late march beacuse of covid-19. The ADS joined a collaboration of other analysts as well as researchers, clinicians and professors from UW-Madison.This model team was tasked with creating some predictive analytics modeling out what they thought was going to happen over the next months. RStudio Server Pro was the main platform that their team used daily.
+
+<https://www.youtube.com/watch?v=h0c5iB_VFcg>
+ 
+## Python vs (and) R for Data Science
+
+The article is about comparison between R and Python for data science. This article was published by Brian Ray. Brian compared these two programs in 8 criteria. These criterias are: History, community, performance, third party support, use case, can't we all just get along, predicting R ve Python, preference. 
+
+<https://blog.usejournal.com/python-vs-and-r-for-data-science-833b48ccc91d>
+
+## Prediction of Turkish Super League Match Results Using Supervised Machine Learning Techniques
+
+This is my article. I made this project with my friend Abidin Aksoy and Our Lecturer Dr. Tolga Kaya. I used this project for my undergraduate thesis. In 2019 July, we joined Intelligent and Fuzzy Sytems (INFUS) conference. Then this article was published in Intelligent and Fuzzy Techniques in Big Data Analytics and Decision Making Book in January 2020. Our aim is that predicting the Turkish Super League match results and determining the factor affects match results. During the project we used supervised machine learning techniques in R
+
+<https://www.researchgate.net/publication/334278531_Prediction_of_Turkish_Super_League_Match_Results_Using_Supervised_Machine_Learning_Techniques>
+
+## Six Reasons Why You Should Learn R for Data Science
+
+This article was published in dataquest. Aim of the article is to prove why we should learn R for data science. According to article, there 6 reasons. First, R is built for statistics. R was originally designed by statisticians for doing statistical analysis, and it remains the programming choice of most statisticians today. Second, R is a popular language for data science at top tech firms like Google, Microsoft, Uber, AirBnb, IBM, HP. Third, Learning the data science basics is arguably easier in R.It was designed specifically with data manipulation and analysis in mind.Fourth, amazing packages like dplyr, ggplot2, tidyverse  that make your life easier. Fifth, Inclusive, growing community of data scientists and statisticians. Sixth and last, put another tool in your toolkit. There are lots of great reasons why we should learn R, because it's a fantastic language for data science.
+
+<https://www.dataquest.io/blog/three-mighty-good-reasons-to-learn-r-for-data-science/>
+
+Best Regards
+
