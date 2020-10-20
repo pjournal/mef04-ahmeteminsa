@@ -4,6 +4,6 @@
 
 [RMarkdown Assignment](RMarkdown_HW-1.html)
 
-# Exercises_1
+# Exercises 1
 
 [Exercises_1](Exercises_1.html)
