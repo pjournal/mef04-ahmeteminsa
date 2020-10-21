@@ -8,4 +8,3 @@
 
 [Exercises 1](Exercises_1.html)
 
-Benim adım Ahmet E.
