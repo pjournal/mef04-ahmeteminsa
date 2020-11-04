@@ -8,3 +8,6 @@
 
 [Exercises 1](Exercises_1.html)
 
+# Week 3 - In Class Exercise
+
+[Istanbul House Price](In_Class_Ex_Istanbul_House_Price.html)
