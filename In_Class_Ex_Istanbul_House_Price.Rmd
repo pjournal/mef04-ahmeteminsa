@@ -44,6 +44,14 @@ ggplot(plot_df2, aes(x=date_ist, y=new_sales_ratio,group=1)) + geom_line()+ geom
 
 plot_df3 %>% pivot_longer(.,-date_ist) %>% ggplot(.,aes(x=date_ist,y=value, group=1,color=name)) + geom_line() + labs(x = "Months", y = "Sales Ratios")
 
+
+ggplot()+
+    geom_line(data=plot_df2,aes(x=date_ist, y=new_sales_ratio,group=1, colour="darkblue"),size=1 )+
+    geom_line(data=plot_df2,aes(x=date_ist, y=old_sales_ratio,group=1, colour="red"),size=1) +
+    geom_line(data=plot_df2,aes(x=date_ist, y=mortgage_sales_ratio,group=1, colour="green"), size=1)+   
+    scale_color_discrete(name = "House Categories", labels = c("new house sales ratio", "old house sales ratio","mortgage house sales ratio")) + labs(x = "date", y = "Sales Ratios")
+
+
 ```
 
 ## Average Monthly Sales for Years
