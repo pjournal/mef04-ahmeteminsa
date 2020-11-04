@@ -1,0 +1,60 @@
+---
+title: "In Class Exercise - Istanbul House Price"
+author: "Ahmet Emin Saricaoglu"
+date: "04 11 2020"
+output: html_document
+---
+
+
+## Instaling Packages
+
+```{r, eval=TRUE}
+library(tidyverse)
+library(lubridate)
+library(tidyr)
+library(dplyr)
+library(readr)
+library(readxl)
+```
+
+## Loading Data
+```{r, eval=TRUE}
+setwd("C:/Users/ahmet/Desktop/MEF_BDA/R_Data")
+data <- read_xlsx("EVDS_istanbul_property_data_R.xlsx")
+```
+## New House Sales vs Old House Sales vs Mortgage House Sales
+```{r, eval=TRUE}
+data_ratios= data %>% mutate(new_sales_ratio=new_building_sales/total_sales, 
+                             old_sales_ratio= old_building_sales/total_sales, 
+                             mortgage_sales_ratio= total_sales_mortgage/total_sales,
+                             foreign_sales_ratio=foreign_sales/total_sales) %>% 
+  select(date_ist,total_sales, total_sales, new_sales_ratio, old_sales_ratio, mortgage_sales_ratio,
+          foreign_sales_ratio, new_building_price_index, price_index, `house_unit_price_Tl/m2`)
+
+
+data_ratios
+
+plot_df2 <- data_ratios %>% select(date_ist,total_sales,new_sales_ratio,old_sales_ratio,mortgage_sales_ratio,foreign_sales_ratio) 
+plot_df2
+
+plot_df3 = plot_df2 %>% select(date_ist, new_sales_ratio, old_sales_ratio, mortgage_sales_ratio)
+
+ggplot(plot_df2, aes(x=date_ist, y=new_sales_ratio,group=1)) + geom_line()+ geom_point(color="blue") + labs(x = "Months", y = "Sales Ratio of New Houses")
+
+
+plot_df3 %>% pivot_longer(.,-date_ist) %>% ggplot(.,aes(x=date_ist,y=value, group=1,color=name)) + geom_line() + labs(x = "Months", y = "Sales Ratios")
+
+```
+
+## Average Monthly Sales for Years
+```{r, eval=TRUE}
+data_yearly= data %>%filter(date_ist<"2020-09") %>% group_by(year = substr(date_ist,1,4)) %>%
+  summarise(avg_mean_sales = mean(total_sales), avg_new_bldg_pi=mean(new_building_price_index), avg_price_index=mean(price_index))
+data_yearly
+
+ggplot(data_yearly, aes(x=year, y=avg_mean_sales,group=1)) + geom_line()+ geom_point(color="red") + labs(x = "Years", y = "Monthly Number of Sales")
+
+```
+
+
+
