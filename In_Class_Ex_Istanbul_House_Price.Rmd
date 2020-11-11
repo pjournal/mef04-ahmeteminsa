@@ -6,9 +6,8 @@ output: html_document
 ---
 
 
+```{r, eval=TRUE, include=FALSE}
 ## Instaling Packages
-
-```{r, eval=TRUE}
 library(tidyverse)
 library(lubridate)
 library(tidyr)
