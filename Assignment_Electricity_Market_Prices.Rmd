@@ -1,0 +1,92 @@
+---
+title: "Electricity Market Prices Assignment"
+author: "Ahmet Emin Saricaoglu"
+date: "10 11 2020"
+output: html_document
+---
+
+## Instaling Packages
+
+```{r, include=FALSE}
+library(tidyverse)
+library(lubridate)
+library(tidyr)
+library(dplyr)
+library(readr)
+library(readxl)
+```
+
+## Loading Data and Preliminary
+```{r, eval=TRUE}
+setwd("C:/Users/ahmet/Desktop/MEF_BDA/R_Data")
+data <- read_xlsx("ptf-smf.xlsx")
+
+data2= data %>% select(Tarih,PTF,SMF)
+data2
+```
+
+```{r}
+data3=data2 %>% mutate(diff=PTF-SMF, smf_direc=ifelse(PTF>SMF,"Energy Surplus",ifelse(PTF<SMF,"Energy Deficit","Balance"))) %>% 
+  select(Tarih,PTF,SMF,diff, smf_direc)
+data3
+```
+
+## Distribution of Results (Energy Surplus, Energy Deficit, Balance)
+
+```{r}
+data_bar=data3 %>% select(smf_direc)
+
+ggplot(data_bar, aes(smf_direc)) +
+  geom_bar(fill = "forest green") + 
+  labs(x = "", y = "Count")
+```
+
+Percentage of energy deficit is higher than Enerji surplus and balance
+
+
+## Daily Situation
+```{r}
+data3_day=data3 %>% group_by(day = lubridate::day(Tarih)) %>% summarise(total_ptf=sum(PTF), total_smf=sum(SMF))
+ggplot()+
+    geom_line(data=data3_day,aes(x=day, y=total_ptf,group=1, colour="darkblue"),size=1 )+
+    geom_line(data=data3_day,aes(x=day, y=total_smf,group=1, colour="red"),size=1 )+
+    scale_color_discrete(name = "Categories", labels = c("Daily PTF", "Daily SMF")) + labs(x = "day", y = "Amount")
+```
+
+## Work Hours Effect
+```{r}
+data_work_hours=data3 %>% mutate(hour = lubridate::hour(Tarih), day = lubridate::day(Tarih)) %>%
+  select(Tarih,hour,day, PTF, SMF, diff, smf_direc) %>% 
+  mutate(work_hour=ifelse(hour>=9 & hour<19 & day%%7!=6 & day%%7!=5,"yes","no")) %>%
+  select(Tarih,hour,day, PTF, SMF, diff, smf_direc, work_hour)
+
+data_work = data_work_hours %>% select(everything()) %>%
+  filter(work_hour=="yes")
+
+
+data_holiday = data_work_hours %>% select(everything()) %>%
+  filter(work_hour=="no")
+
+```
+
+## Out of the Work
+```{r}
+ggplot(data_holiday %>% select(smf_direc), aes(smf_direc)) +
+  geom_bar(fill="red") + 
+  labs(x = "", y = "Count")
+
+```
+
+
+## Work 
+```{r}
+ggplot(data_work %>% select(smf_direc), aes(smf_direc)) +
+  geom_bar(fill = 'blue') + 
+  labs(x = "", y = "Count")
+
+```
+
+We can say that in work hours percentage of the energy deficit is too high. Another mean that is higher than normal situation. In result, it is obviously that predicting the real demand is very hard in work hours
+
+
+
