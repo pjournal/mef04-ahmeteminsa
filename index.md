@@ -11,3 +11,6 @@
 # Week 3 - In Class Exercise 
 
 [Istanbul House Price](In_Class_Ex_Istanbul_House_Price.html)
+
+# Electricity Market Prices
+[Electricity Market Prices](Assignment_Electricity_Market_Prices.html)
