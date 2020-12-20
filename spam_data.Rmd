@@ -1,0 +1,114 @@
+---
+title: "SPAM Detection HW"
+author: "Ahmet Emin Saricaoglu"
+date: "20 12 2020"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: false
+    number_sections: true
+---
+
+```{r, include=FALSE}
+## install.packages('rpart')
+## install.packages('installr')
+## install.packages('rpart.plot')
+## install.packages('RColorBrewer')
+## install.packages('rattle')
+library(RColorBrewer)
+library(rattle)
+library(rpart.plot)
+library(installr)
+library(tidyverse)
+library(lubridate)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(rpart)
+```
+
+# Import Dataset
+
+```{r, warning=FALSE, message= FALSE}
+setwd("C:/Users/ahmet/Desktop/MEF_BDA/BDA-503/Week_6/HW_Spam_Detection")
+spamdata = read.csv(file = 'spam_Data.csv')
+head(spamdata)
+glimpse(spamdata)
+dim(spamdata)
+```
+
+# Split to Training and Test Set
+
+Split spam dataset into train and test dataset.
+Split ratio = 0.80
+
+```{r, warning=FALSE, message= FALSE}
+smp_size <- floor(0.80 * nrow(spamdata))
+set.seed(50)
+train_ind <- sample(seq_len(nrow(spamdata)), size = smp_size)
+train <- spamdata[train_ind, ]
+test <- spamdata[-train_ind, ]
+```
+
+# Build the Model
+
+Build the model with the training data and show graph.
+
+```{r, warning=FALSE, message= FALSE}
+spam_tree <- rpart(class~.,data = train, method = 'class')
+fancyRpartPlot(spam_tree)
+```
+
+# Explication
+
+```{r, warning=FALSE, message= FALSE}
+printcp(spam_tree)
+plotcp(spam_tree)
+```
+
+# Test Prediction 
+
+We can predict our test dataset.
+
+## Confusion Matrix 
+```{r, warning=FALSE, message= FALSE}
+predict_unseen <-predict(spam_tree, test, type = 'class')
+cm <- table(test$class, predict_unseen)
+cm
+```
+There are 833 true prediction and 88 false prediction.
+For 88 false prediction;
+  * There are 26 false positive result
+  * There are 62 false negative result
+
+## Performance Measurement
+```{r, warning=FALSE, message= FALSE}
+accuracy_Test <- sum(diag(cm)) / sum(cm)
+print(paste('Accuracy for test', accuracy_Test))
+```
+# Tune the hyper-parameters
+```{r, warning=FALSE, message= FALSE}
+accuracy_tune <- function(fit) {
+    predict_unseen <- predict(spam_tree, test, type = 'class')
+    table_mat <- table(test$class, predict_unseen)
+    accuracy_Test <- sum(diag(table_mat)) / sum(table_mat)
+    accuracy_Test
+}
+
+control <- rpart.control(minsplit = 4,
+    minbucket = round(5 / 3),
+    maxdepth = 3,
+    cp = 0)
+tune_fit <- rpart(class~., data = train, method = 'class', control = control)
+
+predict_tune<-predict(tune_fit, test, type = 'class')
+cm_fit <- table(test$class, predict_tune)
+cm_fit
+accuracy_test_tune <- sum(diag(cm_fit)) / sum(cm_fit)
+print(paste('Accuracy for test', accuracy_test_tune))
+```
+
+
+
