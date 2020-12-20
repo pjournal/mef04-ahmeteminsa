@@ -14,3 +14,6 @@
 
 # Electricity Market Prices
 [Electricity Market Prices](Assignment_Electricity_Market_Prices.html)
+
+# Spam Detection with Decision Tree
+[Spam Detection with Decision Tree](spam_data.html)
